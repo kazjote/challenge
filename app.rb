@@ -5,22 +5,17 @@ require "haml"
 set :port, ENV["PORT"] || 23000
 
 configure do
-  LOGGER = Logger.new("sinatra.log")
   DOMAIN = "localhost"
 end
 
 helpers do
-  def logger
-    LOGGER
-  end
-
   def domain
     DOMAIN
   end
 end
 
 get "/" do
-  haml :index
+  haml :index, :locals => {:uuid => rand(10**7)}
 end
 
 post "/uploads" do

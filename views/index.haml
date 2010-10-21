@@ -3,11 +3,22 @@
 %html
   %head
     %title Upload page
+    - %w{jquery-1.4.3.js app.js jquery.form.js}.each do |src|
+      %script{:src => src}
 
   %body
     %h1 Upload your file
 
-    %form{:action => "/uploads", :method => "post", :enctype => "multipart/form-data"}
+    %script{:type => "text/javascript"}
+      !== //<![CDATA[
+      = "upload_uuid = #{locals[:uuid]};"
+      !== //]]>
+
+
+    %form{:action => "/uploads?X-Progress-ID=#{locals[:uuid]}", :method => "post", :enctype => "multipart/form-data"}
+      %p
+        Progress:
+        %span#progress Not started
       %label{:for => "file"} File
       %input{:type => "file", :id => "file", :name => "file"}
 
