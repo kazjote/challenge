@@ -12,8 +12,6 @@ Running sinatra cluster:
 
 To build nginx:
 
- git submodules init
-
  cd nginx/vendor
  tar xzf nginx-0.8.53.tar.gz
 
