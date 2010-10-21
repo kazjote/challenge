@@ -1,9 +1,31 @@
 Gem requirements:
 
-  gem install sinatra haml
+  gem install sinatra haml rack-test
 
-Running sinatra:
+Running testcase:
 
-  ruby -rubygems app.rb
+  ruby -rubygems app_test.rb
 
+Running sinatra cluster:
+
+  ruby -rubygems start.rb
+
+To build nginx:
+
+ git submodules init
+
+ cd nginx/vendor
+ tar xzf nginx-0.8.53.tar.gz
+
+ git clone http://github.com/masterzen/nginx-upload-progress-module.git nginx-upload-progress-module
+
+ cd nginx-0.8.53
+ ./configure --add-module=../nginx-upload-progress-module --prefix=`pwd`/../..
+ make && make install
+
+Running nginx
+
+  sudo nginx/sbin/nginx
+
+from root repo directory.
 
