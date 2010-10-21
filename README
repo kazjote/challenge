@@ -1,0 +1,9 @@
+Gem requirements:
+
+  gem install sinatra haml
+
+Running sinatra:
+
+  ruby -rubygems app.rb
+
+
