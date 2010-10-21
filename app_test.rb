@@ -30,6 +30,14 @@ class HelloWorldTest < Test::Unit::TestCase
     assert last_response.ok?
     assert_equal 1, Dir.glob(File.join(ROOT, *%w{public uploads gravatar.png})).size
     assert_match /uploads\/gravatar.png/, last_response.body
+    assert !/body/.match(last_response.body)
+  end
+
+  def test_post_title
+    post "/titles", :title => "Funny title", :filepath => "http://example.com/file.mp3"
+    assert last_response.ok?
+    assert_match "file.mp3", last_response.body
+    assert_match "Funny title", last_response.body
   end
 end
 

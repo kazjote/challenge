@@ -1,5 +1,11 @@
 jQuery(document).ready(function($) {
-  $('form').submit(function() {
+  var ready = false;
+
+  $('#title_form').submit(function() {
+    if(!ready) return false;
+  });
+
+  $('#file_form').submit(function() {
     upload_interval = window.setInterval(function() {
       $.ajax({
         url: '/progress',
@@ -10,7 +16,6 @@ jQuery(document).ready(function($) {
           var upload = eval(data);
 
           if(upload.state == 'done') {
-            $('#progress').html('Done');
             window.clearTimeout(upload_interval);
           } else if(upload.state == 'uploading') {
             $('#progress').html(Math.floor(100 * upload.received / upload.size) + '%');
@@ -19,7 +24,13 @@ jQuery(document).ready(function($) {
       });
     }, 500);
 
-    $(this).ajaxSubmit();
+    $(this).ajaxSubmit({success: function(url) {
+      url = /<body>(.*)<.body>/.exec(url)[1];
+      $('#progress').html('Completed. Your file is available under: ' + url);
+      ready = true;
+      $('#filepath').val(url);
+      $('#title_form').submit();
+    }});
     return false;
   });
 });

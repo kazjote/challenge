@@ -14,11 +14,17 @@
       = "upload_uuid = #{locals[:uuid]};"
       !== //]]>
 
+    %form{:action => "/titles", :method => "post", :id => "title_form"}
+      %label{:for => "title"} Title
+      %input{:type => "text", :id => "title", :name => "title"}
 
-    %form{:action => "/uploads?X-Progress-ID=#{locals[:uuid]}", :method => "post", :enctype => "multipart/form-data"}
+      %input{:type => "hidden", :id => "filepath", :name => "filepath"}
+
+    %form{:action => "/uploads?X-Progress-ID=#{locals[:uuid]}", :method => "post", :enctype => "multipart/form-data", :id => "file_form"}
       %p
         Progress:
-        %span#progress Not started
+        %span#progress select file
+
       %label{:for => "file"} File
       %input{:type => "file", :id => "file", :name => "file"}
 

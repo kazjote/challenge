@@ -26,3 +26,7 @@ post "/uploads" do
   "http://" + DOMAIN + "/uploads/#{params[:file][:filename]}"
 end
 
+post "/titles" do
+  [params[:title], params[:filepath]].join("\n")
+end
+
